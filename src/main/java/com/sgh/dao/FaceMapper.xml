@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sgh.dao.FaceMapper">
+  <insert id="insertFace" parameterType="com.sgh.pojo.Face">
+  insert into face
+  <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="id != null">
+      id,
+    </if>
+    <if test="age != null">
+      age,
+    </if>
+    <if test="beauty != null">
+      beauty,
+    </if>
+    <if test="expression != null">
+      expression,
+    </if>
+    <if test="gender != null">
+      gender,
+    </if>
+    <if test="glasses != null">
+      glasses,
+    </if>
+     <if test="imgPath != null">
+      imgPath,
+    </if>
+  </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="beauty != null">
+        #{beauty,jdbcType=DOUBLE},
+      </if>
+      <if test="expression != null">
+        #{expression,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="glasses != null">
+        #{glasses,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null">
+        #{imgPath,jdbcType=VARCHAR}
+      </if>
+    </trim>
+</insert>
+
+<select id="selectFaceAll" resultType="com.sgh.pojo.Face">
+        select * from face order by beauty desc
+</select> 
+
+  <delete id="deleteFace" parameterType="int">
+         delete from face where id=#{id}
+  </delete>
+
+  <select id="selectFaceById" parameterType="int" resultType="face">
+          select * from face where id=#{id}
+  </select>
+
+  <update id="updateFace" parameterType="face">
+            update face
+            set age=#{age},beauty=#{beauty},gender=#{gender},glasses=#{glasses},expression=#{expression}
+            where id=#{id}
+  </update>
+</mapper>
